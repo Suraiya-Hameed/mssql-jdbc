@@ -182,6 +182,7 @@ public class DBTable extends AbstractSQLGenerator {
         try {
             dropTable(dbstatement);
             String sql = createTableSql();
+            System.out.println("sql "+sql);
             return dbstatement.execute(sql);
         }
         catch (SQLException ex) {
@@ -289,7 +290,7 @@ public class DBTable extends AbstractSQLGenerator {
 
                 // TODO: consider how to enclose data in case of preparedStatemets
                 if (passDataAsString(colNum)) {
-                    sb.add("'" + String.valueOf(getColumn(colNum).getRowValue(i)) + "'");
+                    sb.add("'" + getColumn(colNum).getRowValue(i) + "'");
                 }
                 else if (passDataAsHex(colNum)) {
                     sb.add("0X" + Hex.encodeHexString((byte[]) (getColumn(colNum).getRowValue(i))));
@@ -304,7 +305,7 @@ public class DBTable extends AbstractSQLGenerator {
             }
             sb.add(CLOSE_BRACKET);
         }
-
+        System.out.println(" "+sb.toString());
         return (sb.toString());
     }
 
